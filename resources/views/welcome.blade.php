@@ -27,16 +27,16 @@
         z-index: 2;
     }
 </style>
-<div class="hero-section text-center">
-    <h1 class="display-4 fw-bold mb-3">GenZ FashionZ Supply Chain Management System</h1>
-    <p class="lead mb-4">A professional platform for managing the entire supply chain from raw materials to final delivery. Connect vendors, manufacturers, warehouses, retailers, and customers in one integrated system.</p>
-    @guest
-        <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg mx-2">Register</a>
-        <a href="{{ route('login') }}" class="btn btn-primary btn-lg mx-2">Login</a>
-    @else
-        <a href="{{ route('home') }}" class="btn btn-light btn-lg">Go to Dashboard</a>
-    @endguest
-</div>
+    <div class="hero-section">
+        <div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+            <div class="col-12 text-center">
+                <h1 class="display-3 fw-bold mb-4">GenZ FashionZ Supply Chain Management System</h1>
+                <p class="lead mb-4">A professional platform for managing the entire supply chain from raw materials to final delivery. Connect <strong>vendors</strong>, <strong>manufacturers</strong>, <strong>suppliers</strong>, <strong>retailers</strong>, and <strong>customers</strong> in one integrated system.</p>
+                <a href="{{ route('register') }}" class="btn btn-outline-success btn-lg me-2">Register</a>
+                <a href="{{ route('login') }}" class="btn btn-primary btn-lg">Login</a>
+            </div>
+        </div>
+    </div>
 <div class="container">
     <div class="row text-center mb-5">
         <div class="col-12 mb-4">
@@ -97,29 +97,49 @@
             </div>
         </div>
     </div>
-    <div class="row text-center mb-5">
+    <div class="row text-center mb-5 justify-content-center">
         <div class="col-12 mb-4">
             <h2 class="fw-bold">User Roles</h2>
         </div>
-        <div class="col-md-2 col-6 mb-4">
-            <div class="role-icon"><i class="bi bi-building"></i></div>
-            <div>Vendor</div>
+        <div class="col-lg-2 col-md-3 col-6 mb-4 d-flex justify-content-center">
+            <div class="card h-100 shadow-sm border-0 feature-hover role-hover w-100">
+                <div class="card-body">
+                    <div class="role-icon"><i class="bi bi-building"></i></div>
+                    <div>Vendor</div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-2 col-6 mb-4">
-            <div class="role-icon"><i class="bi bi-gear"></i></div>
-            <div>Manufacturer</div>
+        <div class="col-lg-2 col-md-3 col-6 mb-4 d-flex justify-content-center">
+            <div class="card h-100 shadow-sm border-0 feature-hover role-hover w-100">
+                <div class="card-body">
+                    <div class="role-icon"><i class="bi bi-truck"></i></div>
+                    <div>Supplier</div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-2 col-6 mb-4">
-            <div class="role-icon"><i class="bi bi-house"></i></div>
-            <div>Warehouse Manager</div>
+        <div class="col-lg-2 col-md-3 col-6 mb-4 d-flex justify-content-center">
+            <div class="card h-100 shadow-sm border-0 feature-hover role-hover w-100">
+                <div class="card-body">
+                    <div class="role-icon"><i class="bi bi-gear"></i></div>
+                    <div>Manufacturer</div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-2 col-6 mb-4">
-            <div class="role-icon"><i class="bi bi-shop"></i></div>
-            <div>Retailer</div>
+        <div class="col-lg-2 col-md-3 col-6 mb-4 d-flex justify-content-center">
+            <div class="card h-100 shadow-sm border-0 feature-hover role-hover w-100">
+                <div class="card-body">
+                    <div class="role-icon"><i class="bi bi-shop"></i></div>
+                    <div>Retailer</div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-2 col-6 mb-4">
-            <div class="role-icon"><i class="bi bi-truck"></i></div>
-            <div>Delivery Personnel</div>
+        <div class="col-lg-2 col-md-3 col-6 mb-4 d-flex justify-content-center">
+            <div class="card h-100 shadow-sm border-0 feature-hover role-hover w-100">
+                <div class="card-body">
+                    <div class="role-icon"><i class="bi bi-person-badge"></i></div>
+                    <div>Administrator</div>
+                </div>
+            </div>
         </div>
     </div>
     @guest
@@ -130,4 +150,14 @@
 </div>
 <!-- Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<style>
+.role-hover {
+    transition: transform 0.2s cubic-bezier(.4,2,.6,1), box-shadow 0.2s;
+}
+.role-hover:hover {
+    transform: translateY(-8px) scale(1.07);
+    box-shadow: 0 8px 32px rgba(102,126,234,0.18), 0 1.5px 6px rgba(0,0,0,0.08);
+    z-index: 2;
+}
+</style>
 @endsection

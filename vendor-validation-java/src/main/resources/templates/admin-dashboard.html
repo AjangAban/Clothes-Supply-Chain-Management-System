@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vendor Applications Dashboard</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f0f0f0; }
+        .approved { background: #d4edda; }
+        .rejected { background: #f8d7da; }
+        .pending { background: #fff3cd; }
+    </style>
+</head>
+<body>
+    <h1>Vendor Applications Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Vendor Name</th>
+                <th>PDF File</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Visit Scheduled</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="app : ${applications}" th:classappend="${app.status}">
+                <td th:text="${app.vendorName}">Vendor Name</td>
+                <td th:text="${app.pdfFileName}">PDF File</td>
+                <td th:text="${app.status}">Status</td>
+                <td th:text="${app.notes}">Notes</td>
+                <td th:text="${app.visitScheduled}">Visit Scheduled</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html> 

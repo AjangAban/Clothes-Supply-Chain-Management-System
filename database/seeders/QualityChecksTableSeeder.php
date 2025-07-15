@@ -15,11 +15,7 @@ class QualityChecksTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $inspector = User::where('email', 'inspector@genzfashionz.com')->first();
-        
-        if (!$inspector) {
-            return;
-        }
+        // No inspector user exists, so we'll create quality checks without inspector
 
         // Get actual production order IDs that exist
         $productionOrderIds = ProductionOrder::pluck('id')->toArray();
@@ -54,7 +50,7 @@ class QualityChecksTableSeeder extends Seeder
                 'production_order_id' => $productionOrderIds[array_rand($productionOrderIds)],
                 'check_type' => $checkType,
                 'check_point' => $checkPoint,
-                'inspector_id' => $inspector->id,
+                'inspector_id' => null,
                 'sample_size' => $sampleSize,
                 'defects_found' => $defectsFound,
                 'defect_types' => json_encode($defectTypes),

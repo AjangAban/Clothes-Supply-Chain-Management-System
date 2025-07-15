@@ -17,4 +17,12 @@ class VendorApplication extends Model
         'validation_results',
         'validated_at',
     ];
+
+    /**
+     * Get the vendor that owns the application.
+     */
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
 }

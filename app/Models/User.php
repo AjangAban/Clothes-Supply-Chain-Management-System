@@ -235,7 +235,7 @@ class User extends Authenticatable
      */
     public function manufacturer()
     {
-        return $this->belongsTo(Manufacturer::class);
+        return $this->hasOne(\App\Models\Manufacturer::class, 'user_id');
     }
 
     /**

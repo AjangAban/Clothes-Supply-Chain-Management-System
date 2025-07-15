@@ -42,9 +42,9 @@
                         <label class="form-check-label" for="remember">Remember Me</label>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Login</button>
-                    <div class="d-flex justify-content-between mt-3">
-                        <span></span>
-                        <a href="{{ route('register') }}">Sign Up</a>
+                    <div class="text-center mt-4">
+                        <span>Don't have an account?</span>
+                        <a href="{{ route('register') }}" class="fw-bold text-success ms-1" style="text-decoration: underline;">Sign up</a>
                     </div>
                     <!--
                     <div class="text-center mt-3">

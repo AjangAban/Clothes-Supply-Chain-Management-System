@@ -1,0 +1,5 @@
+com\example\vendorvalidation\VendorValidationService.class
+com\example\vendorvalidation\VendorAdminDashboardController.class
+com\example\vendorvalidation\App.class
+com\example\vendorvalidation\ValidationResult.class
+com\example\vendorvalidation\VendorValidationController.class

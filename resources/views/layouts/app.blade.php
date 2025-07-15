@@ -29,10 +29,10 @@
     @vite('resources/js/app.js')
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">GenZ FashionZ Supply Chain</a>
-        <div class="collapse navbar-collapse justify-content-end">
+        <div class="collapse navbar-collapse justify-content-end align-items-center">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 @guest
@@ -43,13 +43,11 @@
                     @if(auth()->check() && auth()->user()->role && auth()->user()->role->name === 'admin')
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
                     @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('profile.edit') }}">My Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('profile.edit') }}">My Account</a></li>
+                    <li class="nav-item d-flex align-items-center">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="m-0 p-0">
                             @csrf
-                            <button type="submit" class="nav-link btn btn-link text-danger p-0" style="display:inline;">Logout</button>
+                            <button type="submit" class="nav-link btn btn-link text-danger m-0 p-0" style="background:none; border:none;">Logout</button>
                         </form>
                     </li>
                 @endguest
@@ -58,7 +56,7 @@
     </div>
 </nav>
 <div id="app">
-    <div class="container">
+    <div class="container" style="padding-top: 80px;">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -103,6 +101,8 @@
         
         @yield('content')
     </div>
+{{-- Shared Support Footer --}}
+@include('layouts.footer.support')
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

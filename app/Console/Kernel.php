@@ -37,9 +37,6 @@ class Kernel extends ConsoleKernel
     }
     protected $commands = [
         SendSupplierReports::class,
-        Commands\ExportSalesData::class,
-        Commands\ExportCustomerData::class,
-        Commands\ExportMLData::class,
     ];
 
 

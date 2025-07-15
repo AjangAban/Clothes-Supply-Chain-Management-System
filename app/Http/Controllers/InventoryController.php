@@ -27,9 +27,6 @@ class InventoryController extends Controller
 
         // Filter based on user role
         switch ($user->role->name) {
-            case 'warehouse_manager':
-                $query->where('warehouse_id', $user->managedWarehouse->id ?? 0);
-                break;
             case 'retailer':
                 $query->where('retail_store_id', $user->retailStore->id ?? 0);
                 break;
@@ -71,9 +68,6 @@ class InventoryController extends Controller
 
         // Filter based on user role
         switch ($user->role->name) {
-            case 'warehouse_manager':
-                $query->where('warehouse_id', $user->managedWarehouse->id ?? 0);
-                break;
             case 'retailer':
                 $query->where('retail_store_id', $user->retailStore->id ?? 0);
                 break;
@@ -314,9 +308,6 @@ class InventoryController extends Controller
 
         // Filter based on user role
         switch ($user->role->name) {
-            case 'warehouse_manager':
-                $query->where('warehouse_id', $user->managedWarehouse->id ?? 0);
-                break;
             case 'retailer':
                 $query->where('retail_store_id', $user->retailStore->id ?? 0);
                 break;

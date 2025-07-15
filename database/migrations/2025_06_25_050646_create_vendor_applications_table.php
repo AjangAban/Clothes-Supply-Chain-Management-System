@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vendor_id')->constrained()->onDelete('cascade');
             $table->string('pdf_path');
+            $table->string('original_filename')->nullable();
             $table->enum('status', ['pending', 'validating', 'approved', 'rejected'])->default('pending');
             $table->text('validation_notes')->nullable();
             $table->json('validation_results')->nullable(); // Store Java service validation results

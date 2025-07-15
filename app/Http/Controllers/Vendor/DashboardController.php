@@ -68,7 +68,11 @@ class DashboardController extends Controller
             ->groupBy('status')
             ->get();
 
-        return view('vendor.dashboard', compact('stats', 'recentApplications', 'upcomingVisits', 'recentProducts', 'applicationStats', 'vendor'));
+        // Add these lines:
+        $latestApplication = $vendor->applications()->latest()->first();
+        $latestVisit = $vendor->facilityVisits()->latest('scheduled_date')->first();
+
+        return view('vendor.dashboard', compact('stats', 'recentApplications', 'upcomingVisits', 'recentProducts', 'applicationStats', 'vendor', 'latestApplication', 'latestVisit'));
     }
 
     /**
@@ -243,7 +247,6 @@ class DashboardController extends Controller
         $vendor = $user->vendor;
         
         $application = VendorApplication::where('vendor_id', $vendor->id)
-            ->with(['product', 'facilityVisits'])
             ->findOrFail($id);
 
         return view('vendor.applications.show', compact('application'));
@@ -275,11 +278,14 @@ class DashboardController extends Controller
         ]);
 
         // Store the PDF
-        $pdfPath = $request->file('pdf')->store('vendor_applications', 'public');
+        $file = $request->file('pdf');
+        $pdfPath = $file->store('vendor_applications', 'public');
+        $originalFilename = $file->getClientOriginalName();
 
         $application = \App\Models\VendorApplication::create([
             'vendor_id' => $vendor->id,
             'pdf_path' => $pdfPath,
+            'original_filename' => $originalFilename,
             'status' => 'pending',
         ]);
 

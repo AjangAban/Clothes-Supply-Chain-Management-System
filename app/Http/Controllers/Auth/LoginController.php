@@ -48,8 +48,8 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        // Get unique roles by name, excluding inspector, warehouse_manager, warehouse, and customer
-        $roles = \App\Models\Role::whereNotIn('name', ['inspector', 'warehouse_manager', 'warehouse', 'customer'])->get()->unique('name')->values();
+        // Get all available roles for login, except delivery_personnel
+        $roles = \App\Models\Role::where('name', '!=', 'delivery_personnel')->get()->unique('name')->values();
         return view('auth.login', compact('roles'));
     }
 
@@ -62,6 +62,14 @@ class LoginController extends Controller
      */
     protected function authenticated($request, $user)
     {
+        // Auto-create manufacturer profile if user is a manufacturer and profile is missing
+        if ($user->role && $user->role->name === 'manufacturer' && !$user->manufacturer) {
+            \App\Models\Manufacturer::create([
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ]);
+        }
         if ($user->role) {
             return redirect($user->role->getDashboardRoute());
         }

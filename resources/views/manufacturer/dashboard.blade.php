@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @section('content')
 <div class="container py-5">
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('manufacturer.dashboard') }}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('workforce.index') }}">Workforce Management</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('inventory.index') }}">Inventory Management</a>
+        </li>
+    </ul>
     <div class="row mb-4">
         <div class="col-12">
             <h2 class="fw-bold mb-3">Welcome, {{ $manufacturer->name ?? auth()->user()->name }}</h2>
@@ -72,6 +83,69 @@
             </div>
         </div>
     </div>
+
+    <!-- Workforce Distribution Management Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Workforce Distribution Management</h5>
+                    <a href="{{ route('workforce.index') }}" class="btn btn-sm btn-primary">Manage Workforce</a>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3 mb-3">
+                            <div class="card bg-info text-white h-100">
+                                <div class="card-body">
+                                    <h4 class="mb-0">{{ $stats['total_workers'] ?? 0 }}</h4>
+                                    <small>Total Workers</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @php
+        $supplyCenterJson = json_encode($charts['workers_by_supply_center'] ?? (object)[]);
+        $shiftJson = json_encode($charts['workers_by_shift'] ?? (object)[]);
+    @endphp
+    <script id="supply-center-data" type="application/json">{!! $supplyCenterJson !!}</script>
+    <script id="shift-data" type="application/json">{!! $shiftJson !!}</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const workersBySupplyCenter = JSON.parse(document.getElementById('supply-center-data').textContent);
+        const workersByShift = JSON.parse(document.getElementById('shift-data').textContent);
+        if (document.getElementById('workersBySupplyCenterChart')) {
+            new Chart(document.getElementById('workersBySupplyCenterChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: workersBySupplyCenter.labels,
+                    datasets: [{
+                        label: 'Workers',
+                        data: workersBySupplyCenter.data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                    }]
+                },
+                options: {responsive: true}
+            });
+        }
+        if (document.getElementById('workersByShiftChart')) {
+            new Chart(document.getElementById('workersByShiftChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: workersByShift.labels,
+                    datasets: [{
+                        label: 'Workers',
+                        data: workersByShift.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                    }]
+                },
+                options: {responsive: true}
+            });
+        }
+    </script>
 
     <div class="row">
         <!-- Finished Products Table -->

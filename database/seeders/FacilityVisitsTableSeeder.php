@@ -16,10 +16,10 @@ class FacilityVisitsTableSeeder extends Seeder
      */
     public function run()
     {
-        $inspector = User::where('email', 'inspector@genzfashionz.com')->first();
+        // $inspector = User::where('email', 'inspector@genzfashionz.com')->first();
         $vendors = Vendor::all();
 
-        if (!$inspector || $vendors->isEmpty()) {
+        if ($vendors->isEmpty()) {
             return;
         }
 
@@ -35,8 +35,8 @@ class FacilityVisitsTableSeeder extends Seeder
 
             FacilityVisit::create([
                 'vendor_id' => $vendor->id,
-                'inspector_id' => $inspector->id,
-                'inspector_name' => $inspector->name,
+                'inspector_id' => null,
+                'inspector_name' => 'System Inspector',
                 'scheduled_date' => $scheduledDate,
                 'actual_visit_date' => $actualDate,
                 'status' => $status,
