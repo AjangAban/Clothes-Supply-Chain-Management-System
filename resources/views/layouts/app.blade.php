@@ -20,7 +20,7 @@
     <title>{{ $title ?? 'GenZ FashionZ Supply Chain' }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/nucleo-icons@2.0.0/css/nucleo-icons.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/nucleo-icons@2.0.6/css/nucleo-icons.min.css" rel="stylesheet">
     <style>
         body { background: #f8f9fa; }
         .navbar-brand { font-weight: bold; }
@@ -104,6 +104,8 @@
 {{-- Shared Support Footer --}}
 @include('layouts.footer.support')
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
 </body>
 </html>

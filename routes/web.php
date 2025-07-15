@@ -15,7 +15,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\Vendor\ProfileController as VendorProfileController;
-use App\Http\Controllers\MLAnalyticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +29,19 @@ use App\Http\Controllers\MLAnalyticsController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth'])->prefix('supplier')->name('supplier.')->group(function () {
+    Route::get('/chat/{partner}', [App\Http\Controllers\Supplier\ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/send', [App\Http\Controllers\Supplier\ChatController::class, 'store'])->name('chat.send');
+    Route::get('/chat/fetch/{partner}', [App\Http\Controllers\Supplier\ChatController::class, 'fetch'])->name('chat.fetch');
+});
+
+
+Route::middleware(['auth'])->prefix('manufacturer')->name('manufacturer.')->group(function () {
+    Route::get('/chat/{partner}', [App\Http\Controllers\Manufacturer\ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/send', [App\Http\Controllers\Manufacturer\ChatController::class, 'store'])->name('chat.send');
+    Route::get('/chat/fetch/{partner}', [App\Http\Controllers\Manufacturer\ChatController::class, 'fetch'])->name('chat.fetch');
 });
 
 // Custom registration routes
@@ -266,14 +278,15 @@ Route::prefix('orders')->middleware(['auth'])->group(function () {
 });
 
 // Chat Routes
-Route::prefix('chat')->name('chat.')->middleware('auth')->group(function () {
-    Route::get('/', [ChatController::class, 'index'])->name('index');
-    Route::get('/{conversation}', [ChatController::class, 'show'])->name('show');
-    Route::post('/{conversation}/messages', [ChatController::class, 'store'])->name('store');
-    Route::get('{conversation}/messages/{message}/edit', [ChatController::class, 'editMessage'])->name('message.edit');
-    Route::put('{conversation}/messages/{message}', [ChatController::class, 'updateMessage'])->name('message.update');
-    Route::delete('{conversation}/messages/{message}', [ChatController::class, 'destroyMessage'])->name('message.destroy');
-});
+
+//Route::prefix('chat')->name('chat.')->middleware('auth')->group(function () {
+    //Route::get('/', [ChatController::class, 'index'])->name('index');
+    //Route::get('/{conversation}', [ChatController::class, 'show'])->name('show');
+    //Route::post('/{conversation}/messages', [ChatController::class, 'store'])->name('store');
+    //Route::get('{conversation}/messages/{message}/edit', [ChatController::class, 'editMessage'])->name('message.edit');
+    //Route::put('{conversation}/messages/{message}', [ChatController::class, 'updateMessage'])->name('message.update');
+    //Route::delete('{conversation}/messages/{message}', [ChatController::class, 'destroyMessage'])->name('message.destroy');
+//});
 
 // Analytics Routes
 Route::prefix('analytics')->middleware(['auth'])->group(function () {

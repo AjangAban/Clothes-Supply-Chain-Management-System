@@ -20,6 +20,7 @@
                             <h2 class="mb-1 welcome-title">Welcome, {{ isset($user) ? $user->name : ($supplier->contact_person ?? 'Supplier') }}</h2>
                             <p class="mb-0 opacity-75">Raw Material Supplier Dashboard - Supply Chain Management</p>
                         </div>
+
                         <div class="col-md-4 text-end">
                             <div class="d-flex justify-content-end">
                                 <div class="me-3">
@@ -37,6 +38,24 @@
             </div>
         </div>
     </div>
+
+    @if($linkedManufacturers->count())
+    <div class="row mb-3">
+        <div class="col-12 text-center">
+            <h5 class="mb-3">Chat with Manufacturer</h5>
+            @foreach($linkedManufacturers as $manu)
+                <a href="{{ route('supplier.chat.index', ['partner' => $manu->user->id]) }}"
+                   class="btn btn-outline-primary me-2 mb-2">
+                   💬 {{ $manu->user->name }}
+                </a>
+            @endforeach
+        </div>
+    </div>
+@else
+    <p class="text-muted text-center">No manufacturers available for chat.</p>
+@endif
+
+
 
     <!-- KPI Cards -->
     <div class="row mb-4">
@@ -194,17 +213,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="fas fa-comments fa-2x text-info mb-3"></i>
-                    <h6>Communication</h6>
-                    <p class="text-muted small">Chat with manufacturers</p>
-                    <a href="{{ route('chat.index') }}" class="btn btn-outline-info btn-sm">Chat</a>
-                </div>
-            </div>
-        </div>
-    </div>
+        
 
     @if(isset($conversations))
     <div class="row mt-4">

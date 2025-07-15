@@ -91,10 +91,10 @@ class DashboardController extends Controller
         ->take(5)
         ->get();
         // Fetch conversations where the manufacturer is a participant
-        $conversations = $user->conversations()
-            ->with(['messages.user', 'participants'])
-            ->latest('updated_at')
-            ->get();
+        //$conversations = $user->conversations()
+         //   ->with(['messages.user', 'participants'])
+         //   ->latest('updated_at')
+          //  ->get();
         // Fetch production orders made by retailers for this manufacturer
         $retailerOrders = \App\Models\ProductionOrder::where('manufacturer_id', $manufacturer ? $manufacturer->id : null)
             ->whereNotNull('retailer_id')
@@ -102,7 +102,7 @@ class DashboardController extends Controller
             ->latest()
             ->take(10)
             ->get();
-        return view('manufacturer.dashboard', compact('stats', 'recentOrders', 'activeStages', 'user', 'conversations', 'products', 'retailerOrders', 'charts'));
+        return view('manufacturer.dashboard', compact('stats', 'recentOrders', 'activeStages', 'user', 'products', 'retailerOrders', 'charts'));
     }
 
     /**

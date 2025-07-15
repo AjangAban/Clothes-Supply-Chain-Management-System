@@ -21,6 +21,16 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         $supplier = $user->rawMaterialSupplier;
+        // Just fetch any manufacturer the supplier has ever supplied to
+        $manufacturer = Order::where('supplier_id', $supplier->id)
+        ->with('manufacturer.user')
+        ->latest()
+        ->first();
+
+        $manufacturerId = $manufacturer && $manufacturer->manufacturer
+        ? $manufacturer->manufacturer->user_id
+        : null;
+
         
         if (!$supplier) {
             return redirect()->route('supplier.profile.create')->with('error', 'Please complete your supplier profile first.');
@@ -71,7 +81,9 @@ class DashboardController extends Controller
             $q->whereIn('product_id', $productIds);
         })->with(['orderItems.product', 'user'])->latest()->get();
 
-        return view('supplier.dashboard', compact('stats', 'recentOrders', 'pendingDeliveries', 'topMaterials', 'supplier', 'orders'))->with('user', $user);
+        $linkedManufacturers = $supplier->manufacturers()->with('user')->get();
+
+        return view('supplier.dashboard', compact('stats', 'recentOrders', 'pendingDeliveries', 'topMaterials', 'supplier', 'orders', 'linkedManufacturers'))->with('user', $user);
     }
 
     /**

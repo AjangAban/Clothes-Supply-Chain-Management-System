@@ -58,7 +58,8 @@ class RawMaterialSupplier extends Model
     /**
      * Get the manufacturers who ordered from this supplier.
      */
-    public function manufacturers()
+    /*
+     public function manufacturers()
     {
         return $this->belongsToMany(Manufacturer::class, 'orders', 'supplier_id', 'manufacturer_id')->distinct();
     }
@@ -70,4 +71,11 @@ class RawMaterialSupplier extends Model
     {
         return $this->hasMany(\App\Models\Conversation::class, 'supplier_id');
     }
+
+    public function manufacturers()
+    {
+        return $this->belongsToMany(Manufacturer::class, 'manufacturer_supplier', 'supplier_id', 'manufacturer_id');
+    }
+
+
 }

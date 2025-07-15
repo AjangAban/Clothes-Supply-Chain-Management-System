@@ -51,3 +51,9 @@ if (el) {
  * an "id" attribute of "app". This element is included with the "auth"
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
+
+Echo.private(`chat.${userId}`) // userId = current user's ID
+    .listen('MessageSent', (e) => {
+        console.log("New message:", e);
+        // append message to the chat UI
+    });
