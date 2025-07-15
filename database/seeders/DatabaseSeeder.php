@@ -237,6 +237,7 @@ class DatabaseSeeder extends Seeder
 
         // \\App\Models\User::factory(10)->create();
         $this->call(ChatDemoSeeder::class);
+        $this->call(DemoSalesSeeder::class);
 
         if (!User::where('email', 'delivery@example.com')->exists()) {
             $user = User::create([

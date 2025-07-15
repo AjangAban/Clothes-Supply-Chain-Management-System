@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('ml:export-data')->daily();
+        $schedule->exec('python ' . base_path('ml_recommendation.py'))->daily()->after('ml:export-data');
         $schedule->command('send:supplier-reports')->daily();
         $schedule->command('send:delivery-partner-reports')->daily();
         $schedule->command('send:warehouse-manager-reports')->daily();
@@ -35,6 +37,9 @@ class Kernel extends ConsoleKernel
     }
     protected $commands = [
         SendSupplierReports::class,
+        Commands\ExportSalesData::class,
+        Commands\ExportCustomerData::class,
+        Commands\ExportMLData::class,
     ];
 
 

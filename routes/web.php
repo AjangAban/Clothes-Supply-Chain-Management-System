@@ -15,6 +15,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\Vendor\ProfileController as VendorProfileController;
+use App\Http\Controllers\MLAnalyticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -440,6 +441,14 @@ Route::get('/debug/products', function () {
 });
 
 Route::get('/admin/supplier-dashboard/{supplier_id}', [\App\Http\Controllers\AdminController::class, 'viewSupplierDashboard'])->middleware('auth');
+
+Route::get('/admin/ml-analytics', [MLAnalyticsController::class, 'adminAnalytics'])->middleware('auth');
+Route::get('/user/recommendations', [MLAnalyticsController::class, 'userRecommendations'])->middleware('auth');
+
+Route::get('/admin/analytics-dashboard', [AnalyticsController::class, 'dashboard'])->middleware('auth');
+Route::get('/admin/analytics-dashboard/export/csv', [AnalyticsController::class, 'exportCsv'])->middleware('auth');
+Route::get('/admin/analytics-dashboard/export/excel', [AnalyticsController::class, 'exportExcel'])->middleware('auth');
+Route::get('/admin/analytics-dashboard/export/pdf', [AnalyticsController::class, 'exportPdf'])->middleware('auth');
 
 
 Route::middleware(['auth'])->group(function () {
